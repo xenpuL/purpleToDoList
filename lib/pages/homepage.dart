@@ -8,6 +8,8 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+  // _HomePageState is the state of the HomePage widget.
+  // It contains the todo list data and the text editing controller.
 class _HomePageState extends State<HomePage> {
   final controller = TextEditingController();
 
@@ -16,20 +18,26 @@ class _HomePageState extends State<HomePage> {
     ['Learn firebase', false]
   ];
 
+  /// Called when the checkbox at the given index is changed.
+  ///
+  /// Updates the state of the task at the given index to the opposite of its
+  /// current state.
+  ///
+  /// The given index must be a valid index into the [toDoList].
   void checkBoxChanged(int index) {
     setState(() {
       toDoList[index][1] = !toDoList[index][1];
     });
   }
 
-  // void saveNewTask() {
-  //   setState(() {
-  //     if (controller.text.isEmpty) return;
-  //     toDoList.add([controller.text, false]);
-  //     controller.clear();
-  //   });
-  // }
-
+  /// Adds a new task to the to-do list and clears the text field.
+  ///
+  /// If the given [task] is not null, it is used as the new task.
+  /// Otherwise, the text in the text field is used as the new task.
+  ///
+  /// If the new task is empty, nothing is added to the to-do list.
+  ///
+  /// Shows a SnackBar when a new task is added.
   void saveNewTask({String? task}) {
     String newTask = task ?? controller.text.trim();
     if (newTask.isEmpty) return;
@@ -50,12 +58,25 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  /// Deletes the task at the given [index] from the to-do list.
+  ///
+  /// The given [index] must be a valid index into the [toDoList].
+  ///
+  /// Shows a SnackBar when a task is deleted.
   void deleteTask(int index) {
     setState(() {
       toDoList.removeAt(index);
     });
   }
 
+  /// Shows a dialog asking the user to confirm deletion of the task at the
+  /// given [index] from the to-do list.
+  ///
+  /// The given [index] must be a valid index into the [toDoList].
+  ///
+  /// If the user confirms deletion, the task is removed from the to-do list.
+  ///
+  /// Shows a SnackBar when a task is deleted.
   void confirmDeleteTask(int index) {
     String deletedTask =
         toDoList[index][0]; // Capture the task name before deletion
@@ -104,7 +125,6 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text(
           'Simple To-Do',
-          // style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.deepPurple,
         foregroundColor: Colors.white,
